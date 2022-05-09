@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">Todo App</string>
+    <string name="add_list">hello</string>
+    <string name="hint_task">New Task...</string>
+    <string name="button_save">Save</string>
+    <string name="empty_not_saved">Word not saved because it is empty.</string>
+</resources>
