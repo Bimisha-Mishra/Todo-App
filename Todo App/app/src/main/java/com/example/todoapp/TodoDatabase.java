@@ -24,10 +24,9 @@ public abstract class TodoDatabase extends RoomDatabase {
         if(INSTANCE == null){
             synchronized (TodoDatabase.class){
                 if(INSTANCE == null){
-                    Room.databaseBuilder(context.getApplicationContext(),
-                            TodoDatabase.class, "Todo_database").addCallback(TodoDatabaseCallback);
                     INSTANCE = Room.databaseBuilder(context.getApplicationContext(),
                                 TodoDatabase.class, "Todo_database")
+                                .addCallback(TodoDatabaseCallback)
                                 .build();
                 }
             }
@@ -44,9 +43,9 @@ public abstract class TodoDatabase extends RoomDatabase {
                 TodoDao dao = INSTANCE.todoDao();
                 dao.deleteAll();
 
-                Todo todo = new Todo("Hello");
+                Todo todo = new Todo("Hello", 0);
                 dao.insert(todo);
-                todo = new Todo("World");
+                todo = new Todo("World", 0);
                 dao.insert(todo);
             });
         }

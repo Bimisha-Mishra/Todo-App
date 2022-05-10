@@ -15,15 +15,15 @@
         android:padding="8dp"
         android:background="#8BC34A"
     >
+
         <CheckBox
             android:id="@+id/checkbox"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:buttonTint="@color/purple_500"
             android:paddingStart="8dp"
             android:paddingLeft="8dp"
-            android:buttonTint="@color/purple_500"
-            android:textAppearance="@style/TextAppearance.AppCompat.Large"
-            />
+            android:textAppearance="@style/TextAppearance.AppCompat.Large" />
 
     </RelativeLayout>
 

@@ -10,4 +10,6 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="buttonLabel">#FFFFFF</color>
+    <color name="red">#D60A0A</color>
+    <color name="green">#41AE28</color>
 </resources>
