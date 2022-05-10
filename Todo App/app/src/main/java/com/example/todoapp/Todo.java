@@ -12,20 +12,24 @@ public class Todo {
     @NonNull
     @ColumnInfo(name = "list")
     private int id;
-
     private String mTodo;
-    public int getId() {return this.id;}
+    private int status;
 
+
+    public Todo(@NonNull String todo, int status) {
+        this.mTodo = todo;
+        this.status = status;
+    }
+
+    public int getId() {return this.id;}
     public void setId(int id) {
         this.id = id;
     }
 
-    public Todo(@NonNull String todo, int status) {this.mTodo = todo;
-        this.status = status;
-    }
     public String getTodo(){return this.mTodo;}
+    public void setTodo(String todo){this.mTodo = todo;}
 
-    private int status;
+
 
     public int getStatus() {
         return status;

@@ -1,5 +1,7 @@
 package com.example.todoapp;
 
+import static com.example.todoapp.MainActivity.REQUEST_DATA;
+
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -22,9 +24,11 @@ public class NewTodoActivity extends AppCompatActivity {
             getSupportActionBar().hide();
         }
 
+        mEditTodoView.setText(getIntent().getStringExtra(REQUEST_DATA));
+
         final Button button = findViewById(R.id.button_save);
         button.setOnClickListener(view -> {
-            Intent replyIntent = new Intent();
+            Intent replyIntent = getIntent();
             if (TextUtils.isEmpty(mEditTodoView.getText())) {
                 setResult(RESULT_CANCELED, replyIntent);
             } else{
@@ -35,4 +39,5 @@ public class NewTodoActivity extends AppCompatActivity {
             finish();
         });
     }
+
 }

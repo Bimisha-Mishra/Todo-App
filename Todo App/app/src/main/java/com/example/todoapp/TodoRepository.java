@@ -18,7 +18,6 @@ public class TodoRepository {
     }
 
     LiveData<List<Todo>> getTodoLists(){
-        //mTodoLists = mTodoDao.getAlphabetizedWords();
         return mTodoLists;
     }
 
@@ -26,11 +25,11 @@ public class TodoRepository {
         TodoDatabase.databaseWriteExecutor.execute(() -> mTodoDao.insert(todo));
     }
 
-    void delete(int id){
-        TodoDatabase.databaseWriteExecutor.execute(() -> mTodoDao.deleteTodo(id));
+    void delete(Todo todo){
+        TodoDatabase.databaseWriteExecutor.execute(() -> mTodoDao.deleteTodo(todo));
     }
 
-    void updateStatus(int id, int stat){
-        TodoDatabase.databaseWriteExecutor.execute(() -> mTodoDao.updateStatus(id,stat));
+    public void update(Todo todo) {
+        TodoDatabase.databaseWriteExecutor.execute(() -> mTodoDao.update(todo));
     }
 }

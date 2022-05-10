@@ -1,15 +1,12 @@
 package com.example.todoapp;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.View;
 import android.widget.Toast;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -26,7 +23,10 @@ public class MainActivity extends AppCompatActivity {
 
     private List<Todo> todoList;
 
-    public static final int NEW_TODO_ACTIVITY_REQUEST_CODE = 1;
+    public static final int NEW_TODO_INSERT_REQUEST_CODE = 1;
+    public final int NEW_TODO_EDIT_REQUEST_CODE = 2;
+    public static final String REQUEST_POSITION = "com.example.android.todolistsql.POSITION";
+    public static final String REQUEST_DATA = "com.example.android.todolistsql.DATA";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,17 +48,27 @@ public class MainActivity extends AppCompatActivity {
 
         fab = findViewById(R.id.fab);
         fab.setOnClickListener( view -> {
-            Intent intent = new Intent(MainActivity.this, NewTodoActivity.class);
-            startActivityForResult(intent, NEW_TODO_ACTIVITY_REQUEST_CODE);
+            editText(NEW_TODO_INSERT_REQUEST_CODE, -1, "");
         });
+    }
+
+    public void editText(int RequestCode, int position, String todo) {
+        Intent intent = new Intent(MainActivity.this, NewTodoActivity.class);
+        intent.putExtra(REQUEST_POSITION, position);
+        intent.putExtra(REQUEST_DATA, todo);
+        startActivityForResult(intent, RequestCode);
     }
 
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if(requestCode == NEW_TODO_ACTIVITY_REQUEST_CODE && resultCode == RESULT_OK) {
+        if(requestCode == NEW_TODO_INSERT_REQUEST_CODE && resultCode == RESULT_OK) {
             Todo todo = new Todo(data.getStringExtra(NewTodoActivity.EXTRA_REPLY), 0);
             adapter.insert(todo);
+        }
+        else if(requestCode == NEW_TODO_EDIT_REQUEST_CODE && resultCode == RESULT_OK) {
+            adapter.editItem(data.getIntExtra(REQUEST_POSITION,0),
+                            data.getStringExtra(NewTodoActivity.EXTRA_REPLY));
         }else {
             Toast.makeText(
                     getApplicationContext(),

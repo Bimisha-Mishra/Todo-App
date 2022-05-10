@@ -33,17 +33,18 @@ public class TodoAdapter extends ListAdapter<Todo, TodoViewHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull TodoViewHolder holder, int position) {
-        Todo current = todoList.get(position);
-        //holder.bind(current);
-        //Log.println(Log.INFO,"message", current.getTodo());
+        Todo current = getItem(position);
         holder.todoItemView.setText(current.getTodo());
         holder.todoItemView.setChecked(check_status(current.getStatus()));
         holder.todoItemView.setOnCheckedChangeListener((buttonView, isChecked) -> {
             if (isChecked) {
-                mtodoViewModel.updateStatus(current.getId(), 1);
+                current.setStatus(1);
+                //mtodoViewModel.updateStatus(current.getId(), 1);
             } else {
-                mtodoViewModel.updateStatus(current.getId(), 0);
+                current.setStatus(0);
+               //mtodoViewModel.updateStatus(current.getId(), 0);
             }
+            mtodoViewModel.update(current);
         });
     }
 
@@ -52,17 +53,11 @@ public class TodoAdapter extends ListAdapter<Todo, TodoViewHolder> {
         return status == 1;
     }
 
-    public void setTasks(List<Todo> todoList) {
-        this.todoList = todoList;
-    }
 
-    public void editItem(int position) {
-        Todo current = todoList.get(position);
-    }
 
     public void deleteItem(int position) {
-
-        mtodoViewModel.delete(position);
+        Todo current = getItem(position);
+        mtodoViewModel.delete(current);
         notifyItemRemoved(position);
     }
 
@@ -74,8 +69,18 @@ public class TodoAdapter extends ListAdapter<Todo, TodoViewHolder> {
         mtodoViewModel.insert(todo);
     }
 
-    public List<Todo> getAllTodo() {
-        return todoList;
+
+    public void gotoEditActivity(int position) {
+        Todo current = getItem(position);
+        activity.editText(activity.NEW_TODO_EDIT_REQUEST_CODE, position, current.getTodo());
+        notifyItemChanged(position);
+    }
+
+    public void editItem(int position, String text) {
+        Todo current = getItem(position);
+        current.setTodo(text);
+        mtodoViewModel.update(current);
+        notifyItemChanged(position);
     }
 
     static class TodoDiff extends DiffUtil.ItemCallback<Todo> {
