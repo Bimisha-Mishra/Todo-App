@@ -1,6 +1,7 @@
 package com.example.todoapp;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
@@ -8,8 +9,11 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.ListAdapter;
 
+import java.util.List;
+
 public class TodoAdapter extends ListAdapter<Todo, TodoViewHolder> {
 
+    private  List<Todo> todoList;
     private final MainActivity activity;
     private final TodoViewModel mtodoViewModel;
 
@@ -28,9 +32,10 @@ public class TodoAdapter extends ListAdapter<Todo, TodoViewHolder> {
     }
 
     @Override
-    public void onBindViewHolder(TodoViewHolder holder, int position){
-        Todo current = getItem(position);
+    public void onBindViewHolder(@NonNull TodoViewHolder holder, int position) {
+        Todo current = todoList.get(position);
         //holder.bind(current);
+        //Log.println(Log.INFO,"message", current.getTodo());
         holder.todoItemView.setText(current.getTodo());
         holder.todoItemView.setChecked(check_status(current.getStatus()));
         holder.todoItemView.setOnCheckedChangeListener((buttonView, isChecked) -> {
@@ -42,13 +47,17 @@ public class TodoAdapter extends ListAdapter<Todo, TodoViewHolder> {
         });
     }
 
+
     private static boolean check_status(int status){
         return status == 1;
     }
 
+    public void setTasks(List<Todo> todoList) {
+        this.todoList = todoList;
+    }
+
     public void editItem(int position) {
-        Todo current = getItem(position);
-        
+        Todo current = todoList.get(position);
     }
 
     public void deleteItem(int position) {
@@ -63,6 +72,10 @@ public class TodoAdapter extends ListAdapter<Todo, TodoViewHolder> {
 
     public void insert(Todo todo) {
         mtodoViewModel.insert(todo);
+    }
+
+    public List<Todo> getAllTodo() {
+        return todoList;
     }
 
     static class TodoDiff extends DiffUtil.ItemCallback<Todo> {

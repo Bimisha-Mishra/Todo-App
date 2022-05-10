@@ -1,5 +1,6 @@
 package com.example.todoapp;
 
+
 import android.app.Application;
 
 import androidx.lifecycle.LiveData;
@@ -7,8 +8,8 @@ import androidx.lifecycle.LiveData;
 import java.util.List;
 
 public class TodoRepository {
-    private TodoDao mTodoDao;
-    private LiveData<List<Todo>> mTodoLists;
+    private final TodoDao mTodoDao;
+    private final LiveData<List<Todo>> mTodoLists;
 
     TodoRepository(Application application){
         TodoDatabase db = TodoDatabase.getDatabase(application);
@@ -17,25 +18,19 @@ public class TodoRepository {
     }
 
     LiveData<List<Todo>> getTodoLists(){
-        mTodoLists = mTodoDao.getAlphabetizedWords();
+        //mTodoLists = mTodoDao.getAlphabetizedWords();
         return mTodoLists;
     }
 
     void insert(Todo todo){
-        TodoDatabase.databaseWriteExecutor.execute(() -> {
-            mTodoDao.insert(todo);
-        });
+        TodoDatabase.databaseWriteExecutor.execute(() -> mTodoDao.insert(todo));
     }
 
     void delete(int id){
-        TodoDatabase.databaseWriteExecutor.execute(() -> {
-            mTodoDao.deleteTodo(id);
-        });
+        TodoDatabase.databaseWriteExecutor.execute(() -> mTodoDao.deleteTodo(id));
     }
 
     void updateStatus(int id, int stat){
-        TodoDatabase.databaseWriteExecutor.execute(() -> {
-            mTodoDao.updateStatus(id,stat);
-        });
+        TodoDatabase.databaseWriteExecutor.execute(() -> mTodoDao.updateStatus(id,stat));
     }
 }
