@@ -22,8 +22,8 @@ public interface TodoDao {
     @Query("DELETE FROM todo_table")
     void deleteAll();
 
-    @Query("SELECT * FROM todo_table ORDER BY list ASC")
-    LiveData<List<Todo>> getAlphabetizedWords();
+    @Query("SELECT * FROM todo_table WHERE status = :pr ORDER BY priority ASC, dueYear ASC, dueMonth ASC, dueDate ASC, dueHour ASC, dueMin ASC")
+    LiveData<List<Todo>> getTodoList(Status pr);
 
     @Update
     void update(Todo todo);

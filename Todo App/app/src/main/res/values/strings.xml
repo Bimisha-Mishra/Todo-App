@@ -3,5 +3,9 @@
     <string name="add_list">hello</string>
     <string name="hint_task">New Task...</string>
     <string name="button_save">Save</string>
-    <string name="empty_not_saved">Word not saved because it is empty.</string>
+    <string name="empty_not_saved">Task not saved because some fields were empty.</string>
+    <string name="hyphen">-</string>
+    <string name="colon">:</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
