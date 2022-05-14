@@ -33,10 +33,16 @@ public abstract class TodoDatabase extends RoomDatabase {
                 }
             }
         }
+        else {
+            INSTANCE = Room.databaseBuilder(context.getApplicationContext(),
+                            TodoDatabase.class, "Todo_database")
+                    .addCallback(TodoDatabaseCallback)
+                    .build();
+        }
         return INSTANCE;
     }
 
-    private static RoomDatabase.Callback TodoDatabaseCallback = new RoomDatabase.Callback(){
+    private static final RoomDatabase.Callback TodoDatabaseCallback = new RoomDatabase.Callback(){
         @Override
         public void onCreate(@NonNull SupportSQLiteDatabase db) {
             super.onCreate(db);
@@ -45,21 +51,7 @@ public abstract class TodoDatabase extends RoomDatabase {
                 TodoDao dao = INSTANCE.todoDao();
                 dao.deleteAll();
 
-                Todo todo = new Todo("Hello", "Sweden", Calendar.getInstance(TimeZone.getTimeZone("GMT+2")),Priority.THIRD, Status.UNCHECKED);
-                dao.insert(todo);
-                todo = new Todo("Hello", "GMT", Calendar.getInstance(TimeZone.getTimeZone("GMT")),Priority.FIRST, Status.UNCHECKED);
-                dao.insert(todo);
-                todo = new Todo("Hello", "LSL", Calendar.getInstance(TimeZone.getTimeZone("GMT")),Priority.SECOND, Status.UNCHECKED);
-                dao.insert(todo);
-                todo = new Todo("Hello", "HJFKJ", Calendar.getInstance(TimeZone.getTimeZone("GMT")),Priority.FIRST, Status.UNCHECKED);
-                dao.insert(todo);
-                todo = new Todo("Hello", "JHFSJKFSMBSN", Calendar.getInstance(TimeZone.getTimeZone("GMT")),Priority.THIRD, Status.UNCHECKED);
-                dao.insert(todo);
-                todo = new Todo("Hello", "SNLJSDNJDSN", Calendar.getInstance(TimeZone.getTimeZone("GMT")),Priority.SECOND, Status.UNCHECKED);
-                dao.insert(todo);
-                todo = new Todo("Hello", "SDNLJFNSD", Calendar.getInstance(TimeZone.getTimeZone("GMT")),Priority.SECOND, Status.UNCHECKED);
-                dao.insert(todo);
-                todo = new Todo("Hello", "GMKLNSKLSNKLT", Calendar.getInstance(TimeZone.getTimeZone("GMT")),Priority.FIRST, Status.UNCHECKED);
+                Todo todo = new Todo("DMA", "Assignment Deadline", Calendar.getInstance(TimeZone.getTimeZone("GMT+2")),Priority.FIRST, Status.UNCHECKED);
                 dao.insert(todo);
             });
         }
