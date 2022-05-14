@@ -12,32 +12,40 @@
         android:id="@+id/Hello"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-
-        android:layout_marginStart="@dimen/big_padding"
-        android:layout_marginLeft="@dimen/big_padding"
-        android:layout_marginTop="@dimen/biger_padding"
-        android:layout_marginBottom="@dimen/small_padding"
-        android:text="Hello"
-        android:textSize="32sp"
-        android:textStyle="bold"/>
+        android:layout_marginHorizontal="@dimen/biggest_padding"
+        android:layout_marginTop="@dimen/biggest_padding"
+        android:fontFamily="@font/coiny"
+        android:text="Hola!"
+        android:textSize="18sp" />
 
     <TextView
         android:id="@+id/TaskList"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="@dimen/biggest_padding"
-        android:layout_marginVertical="@dimen/small_padding"
         android:layout_below="@id/Hello"
+        android:layout_marginHorizontal="@dimen/biggest_padding"
+        android:fontFamily="@font/coiny"
         android:text="Tasks"
-        android:textSize="32sp"
-        android:textStyle="bold" />
+        android:textColor="@color/colorAccent"
+        android:textSize="32sp" />
+    <ImageView
+        android:id="@+id/gif1"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:src="@drawable/the_blobs_live_on_waving"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:layout_alignBottom="@id/TaskList"
+        android:layout_marginHorizontal="@dimen/biggest_padding" />
+
 
 
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/TaskList"
-        android:layout_above="@+id/fab">
+        android:layout_above="@+id/fab"
+        android:layout_below="@id/TaskList">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -51,6 +59,7 @@
                 android:paddingHorizontal="@dimen/big_padding"
                 app:layout_constraintBottom_toTopOf="@id/completeCheckpoint"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="1.0"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:listitem="@layout/recyclerview_item">
@@ -61,23 +70,30 @@
                 android:id="@+id/completeCheckpoint"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
                 android:layout_marginHorizontal="@dimen/biggest_padding"
-                app:layout_constraintTop_toBottomOf="@id/recyclerview1"
+                android:layout_marginTop="@dimen/biger_padding"
+                android:orientation="horizontal"
+                app:layout_constraintBottom_toTopOf="@id/recyclerview2"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintBottom_toTopOf="@id/recyclerview2">
+                app:layout_constraintTop_toBottomOf="@id/recyclerview1">
+
                 <ImageView
                     android:id="@+id/dropdown_complete"
                     android:layout_width="30dp"
                     android:layout_height="30dp"
-                    android:src="@drawable/ic_baseline_keyboard_arrow_right_24"/>
+                    android:src="@drawable/ic_baseline_keyboard_arrow_right_24"
+                    android:alpha="0.5"
+                    />
+
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:alpha="0.5"
+                    android:fontFamily="@font/coiny"
+                    android:gravity="center_vertical"
                     android:text="Completed"
-                    android:textSize="20sp"
-                    android:gravity="center_vertical"/>
+                    android:textSize="20sp" />
             </LinearLayout>
 
             <androidx.recyclerview.widget.RecyclerView

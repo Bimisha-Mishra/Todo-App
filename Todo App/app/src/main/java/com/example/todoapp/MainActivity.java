@@ -89,15 +89,23 @@ public class MainActivity extends AppCompatActivity {
         recyclerView2.setAdapter(adapter);
         recyclerView2.setLayoutManager(new LinearLayoutManager(this));
 
+        if(recyclerView2.getVisibility() == View.VISIBLE){
+            image.setRotation(90);
+        }
+
         ItemTouchHelper itemTouchHelper2 = new
                 ItemTouchHelper(new RecyclerItemTouchHelper(adapter));
         itemTouchHelper2.attachToRecyclerView(recyclerView2);
+
+        //ImageView imageView = findViewById(R.id.gif1);
+        //Glide.with(this).load(R.drawable.the_blobs_live_on_waving).into(imageView);
 
         fab = findViewById(R.id.fab);
         fab.setOnClickListener( view -> {
             editText(NEW_TODO_INSERT_REQUEST_CODE, new Todo() );
         });
     }
+
 
     public void editText(int RequestCode,Todo todo) {
         Intent intent = new Intent(MainActivity.this, NewTodoActivity.class);
