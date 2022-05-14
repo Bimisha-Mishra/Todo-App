@@ -31,6 +31,7 @@ public class MainActivity extends AppCompatActivity {
 
     private RecyclerView recyclerView1;
     private RecyclerView recyclerView2;
+    public LinearLayout checkpoint;
     private TodoAdapter adapter;
     private Button fab;
 
@@ -59,7 +60,7 @@ public class MainActivity extends AppCompatActivity {
             getSupportActionBar().hide();
         }
 
-        View checkpoint = findViewById(R.id.completeCheckpoint);
+        checkpoint = findViewById(R.id.completeCheckpoint);
         ImageView image = findViewById(R.id.dropdown_complete);
         checkpoint.setOnClickListener( view -> {
             if(recyclerView2.getVisibility() == View.VISIBLE){
@@ -84,6 +85,8 @@ public class MainActivity extends AppCompatActivity {
                 ItemTouchHelper(new RecyclerItemTouchHelper(adapter));
         itemTouchHelper1.attachToRecyclerView(recyclerView1);
 
+
+
         recyclerView2 = findViewById(R.id.recyclerview2);
         adapter = new TodoAdapter(new TodoAdapter.TodoDiff(), this, Status.CHECKED);
         recyclerView2.setAdapter(adapter);
@@ -92,6 +95,7 @@ public class MainActivity extends AppCompatActivity {
         if(recyclerView2.getVisibility() == View.VISIBLE){
             image.setRotation(90);
         }
+
 
         ItemTouchHelper itemTouchHelper2 = new
                 ItemTouchHelper(new RecyclerItemTouchHelper(adapter));

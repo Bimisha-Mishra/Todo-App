@@ -25,10 +25,11 @@
         android:layout_below="@id/Hello"
         android:layout_marginHorizontal="@dimen/biggest_padding"
         android:fontFamily="@font/coiny"
-        android:text="Tasks"
+        android:text="Your Tasks"
         android:textColor="@color/colorAccent"
         android:textSize="32sp" />
-    <ImageView
+
+    <pl.droidsonroids.gif.GifImageView
         android:id="@+id/gif1"
         android:layout_width="40dp"
         android:layout_height="40dp"
@@ -92,7 +93,7 @@
                     android:alpha="0.5"
                     android:fontFamily="@font/coiny"
                     android:gravity="center_vertical"
-                    android:text="Completed"
+                    android:text="Completed Tasks"
                     android:textSize="20sp" />
             </LinearLayout>
 

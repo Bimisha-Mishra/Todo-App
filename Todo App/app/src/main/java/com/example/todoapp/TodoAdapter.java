@@ -4,6 +4,7 @@ package com.example.todoapp;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.util.Log;
+import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
@@ -20,16 +21,15 @@ import java.util.List;
 
 public class TodoAdapter extends ListAdapter<Todo, TodoViewHolder> {
 
-    private  List<Todo> todoList;
     private final MainActivity activity;
     private final TodoViewModel mtodoViewModel;
 
     public TodoAdapter(@NonNull DiffUtil.ItemCallback<Todo> diffCallback, MainActivity ACT , Status status){
         super(diffCallback);
         this.activity = ACT;
-
         mtodoViewModel = new ViewModelProvider(this.activity).get(TodoViewModel.class);
         mtodoViewModel.getTodoList(status).observe(this.activity, this::submitList);
+
     }
 
     @NonNull
@@ -40,6 +40,7 @@ public class TodoAdapter extends ListAdapter<Todo, TodoViewHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull TodoViewHolder holder, int position) {
+
         Todo current = getItem(position);
         holder.todoTitleView.setText(current.getTitle());
         holder.todoDecriptView.setText(current.getTodo());
@@ -72,10 +73,8 @@ public class TodoAdapter extends ListAdapter<Todo, TodoViewHolder> {
         holder.todoStatusView.setOnClickListener((buttonView) -> {
             if (current.getStatus() == Status.UNCHECKED) {
                 current.setStatus(Status.CHECKED);
-                //mtodoViewModel.updateStatus(current.getId(), 1);
             } else {
                 current.setStatus(Status.UNCHECKED);
-               //mtodoViewModel.updateStatus(current.getId(), 0);
             }
             mtodoViewModel.update(current);
         });
@@ -123,12 +122,6 @@ public class TodoAdapter extends ListAdapter<Todo, TodoViewHolder> {
     }
 
 
-    private static boolean check_status(int status){
-        return status == 1;
-    }
-
-
-
     public void deleteItem(int position) {
         Todo current = getItem(position);
         mtodoViewModel.delete(current);
@@ -146,21 +139,11 @@ public class TodoAdapter extends ListAdapter<Todo, TodoViewHolder> {
 
     public void gotoEditActivity(int position) {
         Todo current = getItem(position);
-        activity.editText(activity.NEW_TODO_EDIT_REQUEST_CODE, current);
+        activity.editText(MainActivity.NEW_TODO_EDIT_REQUEST_CODE, current);
         notifyItemChanged(position);
     }
 
     public void editItem(Todo todo) {
-        //Todo current = getItem(todo.get);
-        //current.setTitle(todo.getTitle());
-        //current.setTodo(todo.getTodo());
-        //current.setDueYear(todo.getDueYear());
-        //current.setDueMonth(todo.getDueMonth());
-        //current.setDueDate(todo.getDueDate());
-        //current.setDueHour(todo.getDueHour());
-        //current.setDueMin(todo.getDueMin());
-        //current.setPriority(todo.getPriority());
-        //status does not change here
         mtodoViewModel.update(todo);
         //notifyItemChanged(position);
     }
