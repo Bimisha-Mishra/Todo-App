@@ -8,19 +8,31 @@ import androidx.lifecycle.LiveData;
 import java.util.List;
 
 public class TodoViewModel extends AndroidViewModel {
-    private TodoRepository mRepository;
-    public LiveData<List<Todo>> mTodoLists;
+    private final TodoRepository mRepository;
+    private final LiveData<List<Todo>> mTodoList;
+    private final LiveData<List<Todo>> mCompletedList;
+
     public TodoViewModel (Application application) {
         super(application);
         mRepository = new TodoRepository(application);
-        mTodoLists = mRepository.getTodoLists();
+        mTodoList = mRepository.getTodoList();
+        mCompletedList = mRepository.getCompletedList();
     }
 
-    LiveData<List<Todo>> getTodoLists() { mTodoLists = mRepository.getTodoLists(); return mTodoLists;}
+    LiveData<List<Todo>> getTodoList(Status status) {
+        if (status == Status.UNCHECKED){
+            return mTodoList;
+        }
+        else {
+           return mCompletedList;
+        }
+    }
 
     public void insert(Todo todo) { mRepository.insert(todo);}
 
-    public void delete(int id) { mRepository.delete(id);}
+    public void delete(Todo todo) { mRepository.delete(todo);}
 
-    public void updateStatus(int id, int stat) {mRepository.updateStatus(id,stat);}
+    public void update(Todo todo) {
+        mRepository.update(todo);
+    }
 }

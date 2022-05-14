@@ -51,7 +51,8 @@ public class RecyclerItemTouchHelper extends ItemTouchHelper.SimpleCallback{
             AlertDialog dialog = builder.create();
             dialog.show();
         } else {
-            adapter.editItem(position);
+
+            adapter.gotoEditActivity(position);
         }
     }
 
@@ -68,7 +69,7 @@ public class RecyclerItemTouchHelper extends ItemTouchHelper.SimpleCallback{
 
         if (dX > 0) {
             icon = ContextCompat.getDrawable(adapter.getContext(), R.drawable.ic_baseline_edit_24);
-            background = new ColorDrawable(ContextCompat.getColor(adapter.getContext(), R.color.green));
+            background = new ColorDrawable(ContextCompat.getColor(adapter.getContext(), R.color.red));
         } else {
             icon = ContextCompat.getDrawable(adapter.getContext(), R.drawable.ic_baseline_delete_24);
             background = new ColorDrawable(ContextCompat.getColor(adapter.getContext(), R.color.red));
